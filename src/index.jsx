@@ -7,15 +7,15 @@ import Vans from "./pages/Vans/Vans";
 import VanDetail from "./pages/Vans/VanDetail";
 import Dashboard from "./pages/Host/Dashboard";
 import Income from "./pages/Host/Income";
-import HostVans from "./pages/Host/HostVans";
 import Reviews from "./pages/Host/Reviews";
-import Layout from "./components/Layout";
-import HostLayout from "./components/HostLayout";
-
+import HostVans from "./pages/Host/HostVans";
 import HostVanDetail from "./pages/Host/HostVanDetail";
 import HostVanInfo from "./pages/Host/HostVanInfo";
 import HostVanPricing from "./pages/Host/HostVanPricing";
 import HostVanPhotos from "./pages/Host/HostVanPhotos";
+import Layout from "./components/Layout";
+import HostLayout from "./components/HostLayout";
+import Challenge1 from "../challenge/Challenge1";
 
 import "./server";
 
@@ -28,6 +28,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="vans" element={<Vans />} />
           <Route path="vans/:id" element={<VanDetail />} />
+          <Route path="challenge" element={<Challenge1 />} />
 
           <Route path="host" element={<HostLayout />}>
             <Route index element={<Dashboard />} />
