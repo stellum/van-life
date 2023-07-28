@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"; // eslint-disable-line no-unused-vars
 import { Link, useSearchParams } from "react-router-dom";
+import { getVans } from "../../api";
 
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -8,9 +9,12 @@ const Vans = () => {
   const typeFilter = searchParams.get("type");
 
   useEffect(() => {
-    fetch("/api/vans")
-      .then((response) => response.json())
-      .then((data) => setVans(data.vans));
+    async function loadVans() {
+      const data = await getVans();
+      setVans(data);
+    }
+
+    loadVans();
   }, []);
 
   const displayedVans = typeFilter
