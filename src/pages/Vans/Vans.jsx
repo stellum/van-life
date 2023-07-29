@@ -3,6 +3,7 @@ import { Link, useSearchParams, useLoaderData } from "react-router-dom";
 import { getVans } from "../../api";
 
 export function loader() {
+  // throw new Error("This is an error");
   return getVans();
 }
 
