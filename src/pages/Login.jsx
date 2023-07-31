@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { loginUser } from "../api";
 
 export function loader({ request }) {
   return new URL(request.url).searchParams.get("message");
@@ -10,11 +11,18 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState(null);
   const message = useLoaderData();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginFormData);
+    setStatus("submitting");
+    setError(null);
+    loginUser(loginFormData)
+      .then((data) => console.log(data))
+      .catch((err) => setError(err))
+      .finally(() => setStatus("idle"));
   };
 
   const handleChange = (e) => {
@@ -29,6 +37,7 @@ const Login = () => {
     <div className="login-container">
       <h1>Sign in to your account</h1>
       {message && <h3 className="red">{message}</h3>}
+      {error && <h3 className="red">{error.message}</h3>}
       <form onSubmit={handleSubmit} className="login-form">
         <input
           name="email"
@@ -44,11 +53,10 @@ const Login = () => {
           placeholder="Password"
           value={loginFormData.password}
         />
-        <button>Sign in</button>
+        <button disabled={status === "submitting"}>
+          {status === "submitting" ? "Logging in..." : "Sign in"}
+        </button>
       </form>
-      <p className="login-">
-        Don't have an account? <span>Create one now</span>
-      </p>
     </div>
   );
 };
