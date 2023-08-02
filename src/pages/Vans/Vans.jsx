@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react"; // eslint-disable-line no-unused-vars
+import React, { Suspense } from "react"; // eslint-disable-line no-unused-vars
 import {
   Link,
   useSearchParams,
@@ -14,7 +14,6 @@ export function loader() {
 
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [error, setError] = useState(null);
   const dataPromise = useLoaderData();
 
   const typeFilter = searchParams.get("type");
@@ -29,10 +28,6 @@ const Vans = () => {
       return prevParams;
     });
   };
-
-  if (error) {
-    return <h1>There was an error: {error}</h1>;
-  }
 
   const renderVanElements = (vans) => {
     const displayedVans = typeFilter
