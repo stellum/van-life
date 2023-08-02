@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; // eslint-disable-line no-unused-vars
+import React, { useState, Suspense } from "react"; // eslint-disable-line no-unused-vars
 import {
   Link,
   useSearchParams,
@@ -106,7 +106,9 @@ const Vans = () => {
   return (
     <div className="van-list-container">
       <h1>Explore our van options</h1>
-      <Await resolve={dataPromise.vans}>{renderVanElements}</Await>
+      <Suspense fallback={<h2>Loading vans...</h2>}>
+        <Await resolve={dataPromise.vans}>{renderVanElements}</Await>
+      </Suspense>
     </div>
   );
 };
