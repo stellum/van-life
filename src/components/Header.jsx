@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import imageUrl from "../assets/images/avatar-icon.png";
+import logo from "../assets/images/logo.png";
 
 const Header = () => {
   function fakeLogOut() {
@@ -9,7 +10,7 @@ const Header = () => {
   return (
     <header>
       <Link className="site-logo" to="/">
-        #VanLife
+        <img src={logo} className="logo-icon" />
       </Link>
 
       <nav>
