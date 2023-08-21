@@ -10,7 +10,7 @@ const Header = () => {
 
   useEffect(() => {
     // runs on location, i.e. route, change
-    console.log("handle route change here", location);
+    // console.log("handle route change here", location);
     updateLoginStatus();
   }, [location]);
 
@@ -52,12 +52,9 @@ const Header = () => {
         </NavLink>
 
         {isLoggedIn ? (
-          <>
-            <Link to="host" className="login-link">
-              <img src={imageUrl} className="login-icon" />
-            </Link>
-            <button onClick={logOut}>Log out</button>
-          </>
+          <button onClick={logOut} className="link-button">
+            Log out
+          </button>
         ) : (
           <Link to="login" className="login-link">
             <img src={imageUrl} className="login-icon" />
