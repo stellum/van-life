@@ -1,16 +1,29 @@
-import PropTypes from "prop-types";
-import { Link, NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import imageUrl from "../assets/images/avatar-icon.png";
 import logo from "../assets/images/logo.png";
 
-const Header = ({ isLoggedIn, onLogout }) => {
-  console.log("isLoggedIn prop:", isLoggedIn);
+const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  // function fakeLogOut() {
-  //   localStorage.removeItem("loggedin");
-  // }
+  useEffect(() => {
+    // runs on location, i.e. route, change
+    console.log("handle route change here", location);
+    updateLoginStatus();
+  }, [location]);
 
-  // const isLoggedIn = localStorage.getItem("loggedin") === "true";
+  const updateLoginStatus = () => {
+    const storedLoginStatus = localStorage.getItem("loggedin");
+    setIsLoggedIn(storedLoginStatus === "true");
+    console.log("updating login status ", storedLoginStatus);
+  };
+
+  function logOut() {
+    localStorage.removeItem("loggedin");
+    navigate("/login");
+  }
 
   return (
     <header>
@@ -43,7 +56,7 @@ const Header = ({ isLoggedIn, onLogout }) => {
             <Link to="host" className="login-link">
               <img src={imageUrl} className="login-icon" />
             </Link>
-            <button onClick={onLogout}>Log out</button>
+            <button onClick={logOut}>Log out</button>
           </>
         ) : (
           <Link to="login" className="login-link">
@@ -53,11 +66,6 @@ const Header = ({ isLoggedIn, onLogout }) => {
       </nav>
     </header>
   );
-};
-
-Header.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
-  onLogout: PropTypes.func.isRequired,
 };
 
 export default Header;
